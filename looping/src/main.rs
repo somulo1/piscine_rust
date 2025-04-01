@@ -26,9 +26,6 @@ fn main() {
         if answer == correct_answer {
             println!("Number of trials: {}", tries);
             break; // Exit the loop once the correct answer is given
-        } else {
-            // If answer is incorrect, print this message once
-            println!("Incorrect answer. Try again!\n");
         }
     }
 }
