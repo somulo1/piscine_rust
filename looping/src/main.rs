@@ -8,26 +8,26 @@ fn main() {
     let mut tries = 0;
 
     loop {
-        // Print the riddle
+        // Print the riddle before each input attempt
         println!("{}", riddle);
 
         // Take the user's input
         let mut answer = String::new();
-        io::stdout().flush().unwrap(); // Flush to ensure the prompt is printed before taking input
+        io::stdout().flush().unwrap(); // Ensure prompt is printed before input
         io::stdin().read_line(&mut answer).unwrap();
 
-        // Trim any excess whitespace or newline characters from the input
+        // Trim the input to remove any extra whitespace or newline characters
         let answer = answer.trim();
 
         // Increment the trial count
         tries += 1;
 
-        // Check if the answer is correct
+        // If the answer is correct, break the loop and print the number of trials
         if answer == correct_answer {
             println!("Number of trials: {}", tries);
             break; // Exit the loop once the correct answer is given
         } else {
-            // Only print this message when it's an incorrect answer
+            // Print this message only for incorrect answers
             println!("Incorrect answer. Try again!\n");
         }
     }
