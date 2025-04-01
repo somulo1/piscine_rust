@@ -1,8 +1,7 @@
 use std::io::{self, Write};
 
 fn main() {
-    let riddle = "I am the beginning of the end, and the end of time and space. \
-                  I am essential to creation, and I surround every place. What am I?";
+    let riddle = "I am the beginning of the end, and the end of time and space." ;
     let correct_answer = "the letter e";
 
     let mut tries = 0;
