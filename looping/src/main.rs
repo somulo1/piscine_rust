@@ -13,7 +13,6 @@ fn main() {
 
         // Take the user's input
         let mut answer = String::new();
-        print!("Your answer: ");
         io::stdout().flush().unwrap(); // Flush to ensure the prompt is printed before taking input
         io::stdin().read_line(&mut answer).unwrap();
 
@@ -28,7 +27,7 @@ fn main() {
             println!("Number of trials: {}", tries);
             break; // Exit the loop once the correct answer is given
         } else {
-            // If the answer is incorrect, loop continues and prints the riddle again
+            // Only print this message when it's an incorrect answer
             println!("Incorrect answer. Try again!\n");
         }
     }
