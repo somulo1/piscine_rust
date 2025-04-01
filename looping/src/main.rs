@@ -17,7 +17,7 @@ fn main() {
         io::stdin().read_line(&mut answer).unwrap();
 
         // Trim the input to remove any extra whitespace or newline characters
-        let answer = answer.trim();
+        let answer = answer.trim().to_lowercase();
 
         // Increment the trial count
         tries += 1;
