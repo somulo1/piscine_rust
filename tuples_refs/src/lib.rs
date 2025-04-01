@@ -1,5 +1,5 @@
-// Define the tuple struct to represent a Student
-pub struct Student(u32, String, String);
+// Define the tuple struct to represent a Student with public fields
+pub struct Student(pub u32, pub String, pub String);
 
 // Function to get the student's id
 pub fn id(student: &Student) -> u32 {
