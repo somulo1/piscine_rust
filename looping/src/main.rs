@@ -3,7 +3,7 @@ use std::io::{self, Write};
 fn main() {
     let riddle = "I am the beginning of the end, and the end of time and space. \
                   I am essential to creation, and I surround every place. What am I?";
-    let correct_answer = "The letter e";
+    let correct_answer = "the letter e";
 
     let mut tries = 0;
 
@@ -14,7 +14,7 @@ fn main() {
         // Take the user's input
         let mut answer = String::new();
         // io::stdout().flush().unwrap(); // Ensure prompt is printed before input
-        io::stdin().read_line(&mut answer).unwrap();
+        io::stdin().read_line(&mut answer).expect("failed to readline");
 
         // Trim the input to remove any extra whitespace or newline characters
         let answer = answer.trim().to_lowercase();
