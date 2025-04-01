@@ -13,7 +13,7 @@ fn main() {
 
         // Take the user's input
         let mut answer = String::new();
-        // io::stdout().flush().unwrap(); // Ensure prompt is printed before input
+        
         io::stdin().read_line(&mut answer).expect("failed to readline");
 
         // Trim the input to remove any extra whitespace or newline characters
