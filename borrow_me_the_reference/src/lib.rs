@@ -1,26 +1,42 @@
 pub fn delete_and_backspace(s: &mut String) {
     let mut result = String::new();
+    let mut chars = s.chars().collect::<Vec<char>>();
+    let mut i = 0;
     
-    let mut chars = s.chars().peekable();
-    
-    while let Some(c) = chars.next() {
-        match c {
+    while i < chars.len() {
+        match chars[i] {
             '+' => {
-                // If we encounter a "+", just remove the next character (delete)
-                chars.next(); // Skip the next character
+                // Delete key - remove the next character if it exists
+                if i + 1 < chars.len() {
+                    chars.remove(i + 1);
+                }
+                // Remove the + character itself
+                chars.remove(i);
+                // Don't increment i since we've removed characters
             }
             '-' => {
-                // If we encounter a "-", remove the last character added to result (backspace)
-                result.pop();
+                // Backspace key - remove the previous character if it exists
+                if i > 0 {
+                    chars.remove(i - 1);
+                    // Remove the - character itself (now at position i-1)
+                    chars.remove(i - 1);
+                    // Move back one position
+                    i = i.saturating_sub(1);
+                } else {
+                    // Just remove the - if it's at the beginning
+                    chars.remove(i);
+                    // Don't increment i since we've removed a character
+                }
             }
             _ => {
-                // For any other character, just add it to the result
-                result.push(c);
+                // For any other character, just move to the next position
+                i += 1;
             }
         }
     }
     
-    *s = result;  // Update the original string with the processed result
+    // Convert the vector of chars back to a String
+    *s = chars.iter().collect();
 }
 
 pub fn do_operations(v: &mut [String]) {
