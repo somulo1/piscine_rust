@@ -1,19 +1,19 @@
 pub fn delete_and_backspace(s: &mut String) {
     let mut result = String::new();
-    
     let mut chars = s.chars();
+    
     while let Some(c) = chars.next() {
         match c {
             '-' => {
-                // Backspace: remove the last character from result if it exists
+                // Backspace - remove last character from result
                 result.pop();
             },
             '+' => {
-                // Delete: skip the next character
+                // Delete - skip next character (if any)
                 chars.next();
             },
             _ => {
-                // Any other character: add to result
+                // Regular character - add to result
                 result.push(c);
             }
         }
