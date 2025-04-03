@@ -1,6 +1,6 @@
 use rand::Rng; // Import rand crate for random generation
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Suit {
     Heart,
     Diamond,
@@ -9,76 +9,64 @@ pub enum Suit {
 }
 
 impl Suit {
-    // Associated function to generate a random Suit
     pub fn random() -> Suit {
-        let mut rng = rand::thread_rng(); // Random number generator
-        match rng.gen_range(1..=4) { // Generate a number between 1 and 4
+        let mut rng = rand::thread_rng();
+        match rng.gen_range(1..=4) {
             1 => Suit::Heart,
             2 => Suit::Diamond,
             3 => Suit::Spade,
-            4 => Suit::Club,
-            _ => unreachable!(), // We are sure that the number will be between 1 and 4
+            _ => Suit::Club,
         }
     }
 
-    // Associated function to translate an integer value to a Suit
     pub fn translate(value: u8) -> Suit {
         match value {
             1 => Suit::Heart,
             2 => Suit::Diamond,
             3 => Suit::Spade,
-            4 => Suit::Club,
-            _ => panic!("Invalid suit value"),
+            _ => Suit::Club,
         }
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Rank {
     Ace,
-    Number(u8), // For 2 to 10
+    Number(u8), // For cards 2-10
     Jack,
     Queen,
     King,
 }
 
 impl Rank {
-    // Associated function to generate a random Rank
     pub fn random() -> Rank {
         let mut rng = rand::thread_rng();
-        match rng.gen_range(1..=13) { // Generate a number between 1 and 13
+        match rng.gen_range(1..=13) {
             1 => Rank::Ace,
-            2..=10 => Rank::Number(rng.gen_range(2..=10)), // Number between 2 and 10
             11 => Rank::Jack,
             12 => Rank::Queen,
             13 => Rank::King,
-            _ => unreachable!(),
+            n => Rank::Number(n),
         }
     }
 
-    // Associated function to translate an integer value to a Rank
     pub fn translate(value: u8) -> Rank {
         match value {
             1 => Rank::Ace,
-            2..=10 => Rank::Number(value),
             11 => Rank::Jack,
             12 => Rank::Queen,
             13 => Rank::King,
-            _ => panic!("Invalid rank value"),
+            n => Rank::Number(n),
         }
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct Card {
     pub suit: Suit,
     pub rank: Rank,
 }
 
 pub fn winner_card(card: &Card) -> bool {
-    // Check if the card is the Ace of Spades
-    match (&card.rank, &card.suit) {
-        (Rank::Ace, Suit::Spade) => true,
-        _ => false,
-    }
+    card.suit == Suit::Spade && card.rank == Rank::Ace
 }
-
