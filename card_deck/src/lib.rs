@@ -1,4 +1,5 @@
-use rand::Rng; // Import rand crate for random generation
+use rand::Rng;
+ // Import rand crate for random generation
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Suit {
