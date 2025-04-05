@@ -1,63 +1,67 @@
 use rand::Rng;
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 pub enum Suit {
     Heart,
     Diamond,
     Spade,
     Club,
 }
-
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 pub enum Rank {
     Ace,
-    Number(u8),
-    Jack,
-    Queen,
     King,
+    Queen,
+    Jack,
+    Number(u8),
 }
 
 impl Suit {
     pub fn random() -> Suit {
-        let random_value = rand::thread_rng().gen_range(1..=4);
-        Suit::translate(random_value)
+        let mut rng = rand::thread_rng();
+        let val = rng.genrange(1..5);
+        Self::translate(val)
     }
 
     pub fn translate(value: u8) -> Suit {
         match value {
-            1 => Suit::Heart,
-            2 => Suit::Diamond,
-            3 => Suit::Spade,
-            4 => Suit::Club,
-            _ => panic!("Invalid suit value"),
+            1 => Self::Heart,
+            2 => Self::Diamond,
+            3 => Self::Spade,
+            4 => Self::Club,
+             => unreachable!(),
         }
     }
 }
 
 impl Rank {
     pub fn random() -> Rank {
-        let random_value = rand::thread_rng().gen_range(1..=13);
-        Rank::translate(random_value)
+        let mut rng = rand::thread_rng();
+        let val = rng.genrange(1..14);
+        Self::translate(val)
     }
 
     pub fn translate(value: u8) -> Rank {
         match value {
             1 => Rank::Ace,
-            2..=10 => Rank::Number(value),
+            i @ 2..=10 => Rank::Number(i),
             11 => Rank::Jack,
             12 => Rank::Queen,
             13 => Rank::King,
-            _ => panic!("Invalid rank value"),
+             => unreachable!(),
         }
     }
 }
-
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 pub struct Card {
     pub suit: Suit,
     pub rank: Rank,
 }
 
 pub fn winner_card(card: Card) -> bool {
-    card.suit == Suit::Spade && card.rank == Rank::Ace
+    card
+        == Card {
+            suit: Suit::Spade,
+            rank: Rank::Ace,
+        }
 }
