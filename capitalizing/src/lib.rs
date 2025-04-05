@@ -8,16 +8,18 @@ pub fn capitalize_first(input: &str) -> String {
 
 pub fn title_case(input: &str) -> String {
     input
-        .split_whitespace()
+        .split_whitespace()   // Split the input string by any whitespace
         .map(|word| {
             let mut chars = word.chars();
             match chars.next() {
-                Some(first_char) => first_char.to_uppercase().collect::<String>() + chars.as_str(),
+                Some(first_char) => {
+                    first_char.to_uppercase().collect::<String>() + chars.as_str()
+                }
                 None => String::new(),
             }
         })
         .collect::<Vec<String>>()
-        .join(" ")
+        .join(" ")  // Join the words back with a single space between them
 }
 
 pub fn change_case(input: &str) -> String {
