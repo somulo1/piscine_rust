@@ -7,6 +7,7 @@ pub enum Suit {
     Spade,
     Club,
 }
+
 #[derive(Debug, PartialEq, Clone, Copy)]
 pub enum Rank {
     Ace,
@@ -19,7 +20,7 @@ pub enum Rank {
 impl Suit {
     pub fn random() -> Suit {
         let mut rng = rand::thread_rng();
-        let val = rng.genrange(1..5);
+        let val = rng.gen_range(1..5);  // Fixed genrange to gen_range
         Self::translate(val)
     }
 
@@ -29,7 +30,7 @@ impl Suit {
             2 => Self::Diamond,
             3 => Self::Spade,
             4 => Self::Club,
-             => unreachable!(),
+            _ => unreachable!(),  // Use _ to catch any unmatched values
         }
     }
 }
@@ -37,7 +38,7 @@ impl Suit {
 impl Rank {
     pub fn random() -> Rank {
         let mut rng = rand::thread_rng();
-        let val = rng.genrange(1..14);
+        let val = rng.gen_range(1..14);  // Fixed genrange to gen_range
         Self::translate(val)
     }
 
@@ -48,10 +49,11 @@ impl Rank {
             11 => Rank::Jack,
             12 => Rank::Queen,
             13 => Rank::King,
-             => unreachable!(),
+            _ => unreachable!(),  // Use _ to catch any unmatched values
         }
     }
 }
+
 #[derive(Debug, PartialEq, Clone, Copy)]
 pub struct Card {
     pub suit: Suit,
@@ -59,9 +61,8 @@ pub struct Card {
 }
 
 pub fn winner_card(card: Card) -> bool {
-    card
-        == Card {
-            suit: Suit::Spade,
-            rank: Rank::Ace,
-        }
+    card == Card {
+        suit: Suit::Spade,
+        rank: Rank::Ace,
+    }
 }
