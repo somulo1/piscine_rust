@@ -27,3 +27,12 @@ pub fn check_ms(content: &str) -> Result<String, &str> {  // return owned String
         None => Err("ERROR: illegal"),
     }
 }
+
+use profanity_filter::*;
+
+fn main() {
+    // Test different cases
+    ["hello there", "", "you are stupid", "stupid"]
+        .into_iter()
+        .for_each(|m| println!("{:?}", profanity_filter::check_ms(m)));
+}
