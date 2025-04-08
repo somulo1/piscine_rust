@@ -1,5 +1,3 @@
-// src/lib.rs
-
 pub struct Message {
     content: String,
     user: String,
@@ -13,19 +11,19 @@ impl Message {
         }
     }
 
-    pub fn send_ms(&self) -> Option<&str> {
+    pub fn send_ms(&self) -> Option<String> {
         if self.content.is_empty() || self.content.contains("stupid") {
             None
         } else {
-            Some(&self.content)
+            Some(self.content.clone())
         }
     }
 }
 
-pub fn check_ms(message: &str) -> Result<&str, &str> {
-    let msg = Message::new(message, "anonymous"); // user isn't important here
+pub fn check_ms(message: &str) -> Result<String, String> {
+    let msg = Message::new(message, "anonymous");
     match msg.send_ms() {
         Some(content) => Ok(content),
-        None => Err("ERROR: illegal"),
+        None => Err("ERROR: illegal".to_string()),
     }
 }
