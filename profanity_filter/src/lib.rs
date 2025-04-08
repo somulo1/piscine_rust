@@ -11,19 +11,19 @@ impl Message {
         }
     }
 
-    pub fn send_ms(&self) -> Option<String> {
+    pub fn send_ms(&self) -> Option<&str> {
         if self.content.is_empty() || self.content.contains("stupid") {
             None
         } else {
-            Some(self.content.clone())
+            Some(&self.content)
         }
     }
 }
 
-pub fn check_ms(message: &str) -> Result<String, String> {
-    let msg = Message::new(message, "anonymous");
+pub fn check_ms(content: &str) -> Result<&str, &str> {
+    let msg = Message::new(content, "user"); // user field can be anything
     match msg.send_ms() {
-        Some(content) => Ok(content),
-        None => Err("ERROR: illegal".to_string()),
+        Some(valid_content) => Ok(valid_content),
+        None => Err("ERROR: illegal"),
     }
 }
