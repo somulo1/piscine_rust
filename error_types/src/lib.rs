@@ -9,7 +9,7 @@ impl FormError {
     pub fn new(field_name: &'static str, field_value: String, err: &'static str) -> Self {
         Self {
             form_values: (field_name, field_value),
-            date: "2022-10-17 12:09:25".to_string(),  // use fixed date
+            date: "2022-10-17 12:09:25".to_string(), // <- fixed hardcoded date!
             err,
         }
     }
