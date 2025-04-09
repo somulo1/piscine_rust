@@ -21,11 +21,11 @@ impl Message {
     }
 }
 
-pub fn check_ms<'a>(message: &'a str) -> Result<&'a str, &'static str> {
-    if message.is_empty() || message.contains("stupid") {
-        Err("ERROR: illegal")
-    } else {
-        Ok(message)
-    }
-}
+// pub fn check_ms<'a>(message: &'a str) -> Result<&'a str, &'static str> {
+//     if message.is_empty() || message.contains("stupid") {
+//         Err("ERROR: illegal")
+//     } else {
+//         Ok(message)
+//     }
+// }
 
