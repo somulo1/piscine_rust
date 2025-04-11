@@ -1,20 +1,20 @@
-use std::collections::HashMap;
+// use std::collections::HashMap;
 
 pub fn is_permutation(s1: &str, s2: &str) -> bool {
-    if s1.len() != s2.len() {
-        return false; // Different lengths → cannot be permutations
+    let mut v1: Vec<char> = s1.chars().collect();
+    let mut v2: Vec<char> = s2.chars().collect();
+    v1.sort();
+    v2.sort();
+    v1 == v2
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_is_permutation() {
+        let result = is_permutation("hello", "olleh");
+        assert_eq!(result, true);
     }
-
-    let mut count1 = HashMap::new();
-    let mut count2 = HashMap::new();
-
-    for ch in s1.chars() {
-        *count1.entry(ch).or_insert(0) += 1;
-    }
-
-    for ch in s2.chars() {
-        *count2.entry(ch).or_insert(0) += 1;
-    }
-
-    count1 == count2
 }

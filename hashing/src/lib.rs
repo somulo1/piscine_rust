@@ -1,38 +1,51 @@
-use std::collections::HashMap;
+// use arrays::sum;
 
 pub fn mean(list: &[i32]) -> f64 {
     let sum: i32 = list.iter().sum();
-    let count = list.len();
-    sum as f64 / count as f64
+    sum as f64 / list.len() as f64
 }
 
 pub fn median(list: &[i32]) -> i32 {
-    let mut sorted = list.to_vec(); // Clone the list so we don't change the original
+    let mut sorted = list.to_vec();
     sorted.sort();
     let len = sorted.len();
-    if len % 2 == 1 {
-        sorted[len / 2] // Odd number of elements
+    if len % 2 == 0 {
+        (sorted[len / 2 - 1] + sorted[len / 2]) / 2
     } else {
-        (sorted[len / 2 - 1] + sorted[len / 2]) / 2 // Even number of elements
+        sorted[len / 2]
     }
 }
 
 pub fn mode(list: &[i32]) -> i32 {
-    let mut occurrences = HashMap::new();
-
-    for &value in list {
-        *occurrences.entry(value).or_insert(0) += 1;
+    let mut counts = std::collections::HashMap::new();
+    for &num in list {
+        *counts.entry(num).or_insert(0) += 1;
     }
-
-    let mut mode = list[0];
-    let mut max_count = 0;
-
-    for (&key, &count) in &occurrences {
-        if count > max_count {
-            max_count = count;
-            mode = key;
-        }
-    }
-
+    let (&mode, _) = counts.iter().max_by_key(|&(_, count)| count).unwrap();
     mode
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_mean() {
+        let v = [4, 7, 5, 2, 5, 1, 3];
+        let result = mean(&v);
+        assert_eq!(result, 3.857142857142857
+        );
+    }
+    #[test]
+    fn test_median() {
+        let v = [4, 7, 5, 2, 5, 1, 3];
+        let result = median(&v);
+        assert_eq!(result, 4);
+    }
+    #[test]
+    fn test_mode() {
+        let v = [4, 7, 5, 2, 5, 1, 3];
+        let result = mode(&v);
+        assert_eq!(result, 5);
+    }
 }

@@ -1,19 +1,15 @@
 pub struct Message {
     content: String,
-    #[allow(dead_code)]
     user: String,
 }
 
 impl Message {
-    pub fn new(content: &str, user: &str) -> Self {
-        Self {
-            content: content.to_string(),
-            user: user.to_string(),
-        }
+    pub fn new(content: String, user: String) -> Self {
+        Self { content, user }
     }
 
     pub fn send_ms(&self) -> Option<&str> {
-        if self.content.is_empty() || self.content.contains("stupid") {
+        if self.content.is_empty() || self.content.to_lowercase().contains("stupid") {
             None
         } else {
             Some(&self.content)
@@ -21,11 +17,12 @@ impl Message {
     }
 }
 
-// pub fn check_ms<'a>(message: &'a str) -> Result<&'a str, &'static str> {
-//     if message.is_empty() || message.contains("stupid") {
-//         Err("ERROR: illegal")
-//     } else {
-//         Ok(message)
-//     }
-// }
-
+pub fn check_ms(message: &str) -> Result<&str, &str> {
+    let msg = Message::new(message.to_string(), "user".to_string());
+    
+    if msg.content.is_empty() || msg.content.to_lowercase().contains("stupid") {
+        Err("ERROR: illegal")
+    } else {
+        Ok(message)
+    }
+}

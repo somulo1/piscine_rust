@@ -1,15 +1,16 @@
-// src/lib.rs
 use std::fs::OpenOptions;
-use std::io::Write;
 use std::path::Path;
-
+use std::io::Write;
+// open the file or create file if it doesn't exist
+// append the content to file
+// should panic if error is expected
 pub fn open_or_create<P: AsRef<Path>>(path: &P, content: &str) {
     let mut file = OpenOptions::new()
-        .create(true)   // Create if it doesn't exist
-        .append(true)   // Append to the file
-        .open(path)
-        .unwrap();      // Panic if it fails
+                .append(true)
+                .create(true)
+                .open(path)
+                .expect("Failed to open file");
 
-    file.write_all(content.as_bytes())
-        .unwrap();      // Panic if writing fails
+    write!(file, "{content}").expect("failed to write");
 }
+

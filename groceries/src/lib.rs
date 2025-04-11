@@ -1,9 +1,25 @@
 pub fn insert(vec: &mut Vec<String>, val: String) {
-    // Insert the new element at the end of the Vec
     vec.push(val);
 }
 
 pub fn at_index(slice: &[String], index: usize) -> &str {
-    // Return the element at the given index from the slice
     &slice[index]
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn insert_test() {
+        let mut vec = Vec::new();
+        insert(&mut vec, "apple".to_string());
+        assert_eq!(vec[0], "apple");
+    }
+    #[test]
+    fn at_index_test() {
+        let vec = vec!["apple".to_string(), "banana".to_string()];
+        let result = at_index(&vec, 1);
+        assert_eq!(result, "banana");
+    }
 }

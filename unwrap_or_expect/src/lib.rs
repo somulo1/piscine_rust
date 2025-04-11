@@ -1,4 +1,3 @@
-// src/lib.rs
 pub enum Security {
     Unknown,
     Message,
@@ -8,24 +7,17 @@ pub enum Security {
 }
 
 pub fn fetch_data(server: Result<&str, &str>, security_level: Security) -> String {
-    match security_level {
-        Security::Unknown => server.unwrap().to_string(),
-
-        Security::Message => server.expect("ERROR: program stops").to_string(),
-
-        Security::Warning => match server {
-            Ok(url) => url.to_string(),
-            Err(_) => "WARNING: check the server".to_string(),
+    match server {
+        Ok(url) => match security_level{
+            Security::UnexpectedUrl => panic!("{url}"),
+            _ => url.to_string(),
         },
-
-        Security::NotFound => match server {
-            Ok(url) => url.to_string(),
-            Err(err_msg) => format!("Not found: {}", err_msg),
-        },
-
-        Security::UnexpectedUrl => match server {
-            Ok(url) => panic!("{}", url),
-            Err(err_msg) => err_msg.to_string(),
+        Err(error) => match security_level {
+            Security::Unknown => Err(error).unwrap(),
+            Security::Message => Err(error).expect("ERROR: program stops"),
+            Security::Warning => format!("WARNING: check the server"),
+            Security::NotFound => format!("Not found: {error}"),
+            Security::UnexpectedUrl => format!("{error}"),
         },
     }
 }

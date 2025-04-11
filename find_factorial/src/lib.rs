@@ -1,13 +1,18 @@
 pub fn factorial(num: u64) -> u64 {
-    if num == 0 || num == 1 {
-        return 1;
+    if num <= 1 {
+        1
+    } else {
+        num * factorial(num - 1)
     }
-
-    let mut result = 1;
-    for i in 2..=num {
-        result *= i;
-    }
-    result
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
 
+    #[test]
+    fn factorial_test() {
+        let result = factorial(0);
+        assert_eq!(result, 1);
+    }
+}
