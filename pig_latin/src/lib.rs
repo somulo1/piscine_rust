@@ -14,11 +14,11 @@ pub fn pig_latin(text: &str) -> String {
 
     let mut idx = 0;
     while idx < chars.len() {
+        if idx > 0 && chars[idx - 1] == 'q' && chars[idx] == 'u' {
+            idx += 1; // Include 'u' after 'q'
+            break;
+        }
         if vowels.contains(&chars[idx]) {
-            // Special case: consonant + "qu"
-            if idx > 0 && chars[idx - 1] == 'q' {
-                idx += 1;
-            }
             break;
         }
         idx += 1;
