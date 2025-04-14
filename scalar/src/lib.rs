@@ -16,6 +16,7 @@ pub fn quo(a: f32, b: f32) -> f32 {
 
 pub fn rem(a: f32, b: f32) -> f32 {
     a % b
+<<<<<<< HEAD
 }
 
 
@@ -29,3 +30,6 @@ pub fn rem(a: f32, b: f32) -> f32 {
 //         assert_eq!(result, 4);
 //     }
 // }
+=======
+}
+>>>>>>> 7114c937a7c0a8a7c95d4f2ac968a6ab5af99801
