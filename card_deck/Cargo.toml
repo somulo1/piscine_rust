@@ -4,4 +4,9 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+<<<<<<< HEAD
+rand = "0.8"
+=======
+rand = "0.8.5"
+>>>>>>> 7114c937a7c0a8a7c95d4f2ac968a6ab5af99801
 rand = "0.8.5"

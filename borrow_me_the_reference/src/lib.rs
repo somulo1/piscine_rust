@@ -1,3 +1,55 @@
+<<<<<<< HEAD
+pub fn delete_and_backspace(s: &mut String) {
+    let mut result = String::new();
+    let mut chars = s.chars().peekable();
+    let mut skip_count = 0;
+
+    while let Some(c) = chars.next() {
+        if skip_count > 0 {
+            skip_count -= 1;
+            continue;
+        }
+
+        match c {
+            '-' => {
+                result.pop(); // Remove the last character for backspace
+            }
+            '+' => {
+                // Count consecutive '+' signs
+                skip_count += 1;
+                while let Some(next_char) = chars.peek() {
+                    if *next_char == '+' {
+                        skip_count += 1;
+                        chars.next();
+                    } else {
+                        break;
+                    }
+                }
+                // Skip characters equal to the number of consecutive '+' signs
+            }
+            _ => {
+                result.push(c); // Add current character to result
+            }
+        }
+    }
+
+    *s = result;
+}
+pub fn do_operations(v: &mut [String]) {
+    for op in v.iter_mut() {
+        let parts: Vec<&str> = op.split(|c| c == '+' || c == '-').collect();
+        let left: i32 = parts[0].parse().unwrap();
+        let right: i32 = parts[1].parse().unwrap();
+        
+        // Determine the operator
+        let result = if op.contains('+') {
+            left + right
+        } else {
+            left - right
+        };
+        
+        *op = result.to_string();
+=======
 // Create the following functions:
 
 //     delete_and_backspace: which receives a borrowed string, and processes it.
@@ -113,5 +165,6 @@ mod tests {
             "abc".to_string(), // Non-numeric
         ];
         do_operations(&mut equations);
+>>>>>>> 7114c937a7c0a8a7c95d4f2ac968a6ab5af99801
     }
 }
