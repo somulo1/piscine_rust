@@ -1,4 +1,4 @@
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct Matrix<T>(pub Vec<Vec<T>>);
 
 pub trait Scalar {
@@ -7,6 +7,7 @@ pub trait Scalar {
     fn one() -> Self::Item;
 }
 
+// Implement Scalar for common types
 impl Scalar for i32 {
     type Item = i32;
     fn zero() -> Self::Item { 0 }
@@ -27,7 +28,7 @@ impl Scalar for f64 {
 
 impl<T: Scalar<Item = T> + Clone> Matrix<T> {
     pub fn new() -> Matrix<T> {
-        Matrix(vec![vec![T::one()]]) // 1x1 matrix with one element = 1
+        Matrix(vec![vec![T::one()]])
     }
 
     pub fn zero(row: usize, col: usize) -> Matrix<T> {
