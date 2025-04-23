@@ -40,29 +40,7 @@ impl Vehicle for Car<'_> {
     }
 }
 
-// Function to get all models from a list of vehicles
-fn all_models(list: Vec<&dyn Vehicle>) -> Vec<&str> {
+// Make the function public so it can be used outside this module
+pub fn all_models(list: Vec<&dyn Vehicle>) -> Vec<&str> {
     list.iter().map(|vehicle| vehicle.model()).collect()
 }
-
-// fn main() {
-//     // List of vehicles (cars and trucks)
-//     let vehicles: Vec<&dyn Vehicle> = vec![
-//         &Car {
-//             plate_nbr: "A3D5C7",
-//             model: "Model 3",
-//             horse_power: 325,
-//             year: 2010,
-//         },
-//         &Truck {
-//             plate_nbr: "V3D5CT",
-//             model: "Ranger",
-//             horse_power: 325,
-//             year: 2010,
-//             load_tons: 40,
-//         },
-//     ];
-
-//     // Call all_models to get the models
-//     println!("{:?}", all_models(vehicles)); // Output: ["Model 3", "Ranger"]
-// }
