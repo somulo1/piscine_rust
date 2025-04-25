@@ -43,16 +43,17 @@ impl Cart {
             }
         }
 
-        // To avoid zero values (as per the requirement), we'll adjust the prices slightly
-        let total: f32 = sorted_items.iter().sum();
-        let adjusted_prices: Vec<f32> = sorted_items
+        // Clone the vector for proportional adjustment
+        let sorted_items_clone = sorted_items.clone();
+        let total: f32 = sorted_items_clone.iter().sum();
+        let adjusted_prices: Vec<f32> = sorted_items_clone
             .into_iter()
             .map(|price| {
                 // If price is zero, add a small amount to make it non-zero
                 if price == 0.0 {
                     0.01
                 } else {
-                    (price * total / sorted_items.iter().sum::<f32>()).round() // Proportional adjustment
+                    (price * total / sorted_items_clone.iter().sum::<f32>()).round() // Proportional adjustment
                 }
             })
             .collect();
