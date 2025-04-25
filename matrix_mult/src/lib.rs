@@ -1,26 +1,9 @@
 use std::ops::Mul;
 
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct Matrix<T>(pub Vec<Vec<T>>);
 
-pub trait Scalar {
-    type Item;
-    fn zero() -> Self::Item;
-    fn one() -> Self::Item;
-}
-
-// Implement Scalar for basic types
-impl Scalar for u32 {
-    type Item = u32;
-    fn zero() -> Self::Item { 0 }
-    fn one() -> Self::Item { 1 }
-}
-
-impl<T: Clone> Matrix<T> {
-    pub fn number_of_rows(&self) -> usize {
-        self.0.len()
-    }
-
+impl<T> Matrix<T> {
     pub fn number_of_cols(&self) -> usize {
         if self.0.is_empty() {
             0
@@ -29,44 +12,40 @@ impl<T: Clone> Matrix<T> {
         }
     }
 
-    pub fn row(&self, n: usize) -> Vec<T> {
+    pub fn number_of_rows(&self) -> usize {
+        self.0.len()
+    }
+
+    pub fn row(&self, n: usize) -> Vec<T> where T: Clone {
         self.0[n].clone()
     }
 
-    pub fn col(&self, n: usize) -> Vec<T> {
+    pub fn col(&self, n: usize) -> Vec<T> where T: Clone {
         self.0.iter().map(|row| row[n].clone()).collect()
     }
 }
 
-// Implement matrix multiplication
-impl<T> Mul for Matrix<T>
-where
-    T: Scalar<Item = T> + Clone + Mul<Output = T> + std::ops::Add<Output = T>,
-{
+impl<T> Mul for Matrix<T> where T: Clone + std::ops::Mul<Output = T> + std::iter::Sum<T> {
     type Output = Option<Matrix<T>>;
 
-    fn mul(self, rhs: Matrix<T>) -> Self::Output {
-        let rows_a = self.number_of_rows();
-        let cols_a = self.number_of_cols();
-        let rows_b = rhs.number_of_rows();
-        let cols_b = rhs.number_of_cols();
-
-        if cols_a != rows_b {
+    fn mul(self, other: Matrix<T>) -> Option<Matrix<T>> {
+        if self.number_of_cols() != other.number_of_rows() {
             return None;
         }
 
-        let mut result = vec![vec![T::zero(); cols_b]; rows_a];
-
-        for i in 0..rows_a {
-            for j in 0..cols_b {
-                let mut sum = T::zero();
-                for k in 0..cols_a {
-                    sum = sum + self.0[i][k].clone() * rhs.0[k][j].clone();
-                }
-                result[i][j] = sum;
+        let mut result = Vec::new();
+        for i in 0..self.number_of_rows() {
+            let mut new_row = Vec::new();
+            for j in 0..other.number_of_cols() {
+                let sum = self.row(i)
+                    .iter()
+                    .zip(other.col(j).iter())
+                    .map(|(a, b)| a.clone() * b.clone())
+                    .sum();
+                new_row.push(sum);
             }
+            result.push(new_row);
         }
-
         Some(Matrix(result))
     }
 }
