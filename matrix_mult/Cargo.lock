@@ -3,5 +3,25 @@
 version = 4
 
 [[package]]
+<<<<<<< HEAD
 name = "matrix_mult"
 version = "0.1.0"
+=======
+name = "lalgebra_scalar"
+version = "0.1.0"
+
+[[package]]
+name = "matrix"
+version = "0.1.0"
+dependencies = [
+ "lalgebra_scalar",
+]
+
+[[package]]
+name = "matrix_mult"
+version = "0.1.0"
+dependencies = [
+ "lalgebra_scalar",
+ "matrix",
+]
+>>>>>>> 4318d1e58416d96217c638bccbb46d1a6b9d3a79
